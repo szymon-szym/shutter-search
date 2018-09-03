@@ -1,18 +1,45 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Search :loading="loading" :photos="photosArr"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import Search from '@/components/Search.vue'
+import firebase from 'firebase'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    HelloWorld,
+    Search
+  },
+  data() {
+    return {
+      photos: {  },
+      loading: false
+    }
+  },
+  methods: {
+    fetchPhoto: function() {
+      this.loading = true;
+      const db = firebase.database();
+      db.ref('/photos/').once('value')
+      .then(snap => {
+        this.photos = snap.val()
+        this.loading = false;
+      })
+    }
+  },
+  computed: {
+    photosArr() {
+       return Object.keys(this.photos).map(e => this.photos[e])
+    }
+  },
+  mounted() {
+    this.fetchPhoto();  
   }
 }
 </script>
