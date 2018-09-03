@@ -6,14 +6,12 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import Search from '@/components/Search.vue'
 import firebase from 'firebase'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
     Search
   },
   data() {

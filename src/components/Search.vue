@@ -18,6 +18,7 @@
       indeterminate
       class="loader"
     ></v-progress-circular>
+  <div class="mb-2 mt-0" v-if="(filteredPhotos.length>0)">Found: {{ filteredPhotos.length  }} </div>
   <div class="photo-cont">
     <PhotoCard v-for="photo in filteredPhotos" :photo="photo" :key="photo.id"/>
   </div>
@@ -43,17 +44,11 @@ export default {
       search: ''
     }
   },
-  computed: {
-    comFiltered() {
-      return this.filteresPhotos
-      },
-  },
   methods: {
     filterPhotos: function() {
       if (this.search.length < 3) { return console.log('min 3 chars') } 
       this.filteredPhotos = []
-      console.log(this.search)
-      return this.filteredPhotos = this.photos.filter(e => e.link.includes(this.search))
+      return this.filteredPhotos = this.photos.filter(e => e.link.toLowerCase().includes(this.search.toLowerCase()))
     },
     clear: function() {
       this.filteredPhotos = []
@@ -85,4 +80,7 @@ export default {
   top: 50vH;
   margin-top: -50px;
 }
+/* .found-counter {
+  margin-top:
+} */
 </style>
