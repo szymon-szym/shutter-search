@@ -51,14 +51,9 @@ export default {
   methods: {
     filterPhotos: function() {
       if (this.search.length < 3) { return console.log('min 3 chars') } 
-      let searchArr = this.search.split(" ")
-      let result = []
       this.filteredPhotos = []
-      for (let val of searchArr) {
-        result.push(...(this.photos.filter(e => e.link.includes(val))))
-      }
-      console.log(result)
-      return this.filteredPhotos = result
+      console.log(this.search)
+      return this.filteredPhotos = this.photos.filter(e => e.link.includes(this.search))
     },
     clear: function() {
       this.filteredPhotos = []

@@ -42,10 +42,9 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => {
           this.$router.replace('/')
-          console.log(user)
         },
         function(err) {
-          console.log(`oooops ${err.message}`)
+          alert(`oooops ${err.message}`)
         }
       )
     }
