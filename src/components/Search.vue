@@ -7,7 +7,7 @@
           label="Search"
         >
         </v-text-field>
-    <v-btn @click="filterPhotos()"  @keyup.enter="filterPhotos()">Search</v-btn>
+    <v-btn  @click="filterPhotos($event)">Search</v-btn>
     <v-btn @click="clear()" color="error">Clear</v-btn>
     </div>
   </div>
@@ -45,14 +45,23 @@ export default {
     }
   },
   methods: {
-    filterPhotos: function() {
-      if (this.search.length < 3) { return console.log('min 3 chars') } 
-      this.filteredPhotos = []
-      return this.filteredPhotos = this.photos.filter(e => e.link.toLowerCase().includes(this.search.toLowerCase()))
+    filterPhotos: function(e) {
+      if ((e.type==='click') || (e.key==='Enter')) {
+        if (this.search.length < 3) { return console.log('min 3 chars') } 
+        this.filteredPhotos = []
+        return this.filteredPhotos = this.photos.filter(e => e.link.toLowerCase().includes(this.search.toLowerCase()))
+      }
     },
     clear: function() {
       this.filteredPhotos = []
+      this.search = ''
     }
+  },
+  created() {
+    window.addEventListener('keyup', this.filterPhotos)
+  },
+  beforeDestroy() {
+    window.removeEventListener('keyup', this.filterPhotos)
   }
 }
 

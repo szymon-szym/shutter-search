@@ -43,7 +43,6 @@ export default {
       let description = this.photo.link.match(keywordRegEx).reduce((acc, curr) => {
         return acc += curr
       }, '')
-      // return description.replace(/-/g, " ")
       return description.replace(/-/g, " ")
       },
       linkToShutt() {

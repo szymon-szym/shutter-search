@@ -9,7 +9,8 @@
     ></v-text-field>
     <v-text-field
       v-model="password"
-      :rules="emailRules"
+      :rules="passwordRules"
+      :type="'password'"
       label="password"
       required
     ></v-text-field>
@@ -31,7 +32,7 @@ export default {
         v => /.+@.+/.test(v) || 'Mail must be valid'
       ],
       password: '',
-      emailRules: [
+      passwordRules: [
        v => !!v || 'Password is required',
         v => v.length <= 10 || 'Password must be less than 10 characters'
       ]
@@ -40,7 +41,7 @@ export default {
   methods: {
     login: function() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        user => {
+        () => {
           this.$router.replace('/')
         },
         function(err) {
